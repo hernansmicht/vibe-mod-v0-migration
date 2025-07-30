@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 // Replace with the actual repository name
-const repoName = 'GameJamAITemplate';
+const repoName = 'vibe-mod-v0-migration';
 
 const nextConfig = {
   basePath: `/${repoName}`,
