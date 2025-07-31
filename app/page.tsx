@@ -58,6 +58,54 @@ const BLOOD_PATTERNS = {
 
 // Crime scene cases
 const CRIME_CASES = {
+  "suburban-shooting": {
+    id: "suburban-shooting",
+    title: "The Suburban Shooting",
+    description:
+      "A home invasion turned deadly. Analyze the blood patterns to reconstruct the sequence of events from the initial entry to the final moments.",
+    difficulty: "Beginner",
+    location: "Suburban Home",
+    status: "Available",
+    image: "/suburban-scene.png",
+    analysisPoints: [
+      { id: 1, x: 78, y: 22, pattern: "impact-spatter", description: "Fine droplets near the entrance" },
+      { id: 2, x: 68, y: 58, pattern: "passive-drops", description: "Small pools of blood on the floor by the door" },
+      { id: 3, x: 35, y: 65, pattern: "drip-trail", description: "Linear path of drops leading into the house" },
+      { id: 4, x: 45, y: 80, pattern: "passive-drops", description: "Large pool of blood where victim collapsed" },
+      { id: 5, x: 70, y: 75, pattern: "impact-spatter", description: "Scattered tiny droplets around the victim's head" },
+    ],
+    timelineArrows: [
+      { id: 1, x: 20, y: 75, event: "Killer positioned inside, awaiting victim's entry", direction: "↓" },
+      { id: 2, x: 70, y: 30, event: "Victim opens door, shot in stomach", direction: "←" },
+      { id: 3, x: 30, y: 60, event: "Victim stumbles further into the house", direction: "↙" },
+      { id: 4, x: 45, y: 75, event: "Victim collapses to the floor", direction: "↓" },
+      { id: 5, x: 60, y: 65, event: "Killer delivers fatal headshot", direction: "↓" },
+      { id: 6, x: 50, y: 45, event: "Killer flees the scene", direction: "↗" },
+    ],
+    deductionQuestions: [
+      {
+        question: "What was the initial injury location?",
+        options: ["Head", "Chest", "Stomach", "Leg"],
+        correct: 2,
+        explanation:
+          "The initial blood patterns (impact spatter and passive drops) at the entry point, followed by a drip trail, indicate a wound that caused bleeding while the victim was still mobile, consistent with a stomach injury.",
+      },
+      {
+        question: "What does the drip trail indicate about the victim?",
+        options: ["Victim was dragged", "Victim moved after injury", "Victim was stationary"],
+        correct: 1,
+        explanation:
+          "A drip trail is formed by drops of blood falling from a moving object or person, indicating the victim was mobile after sustaining the initial injury.",
+      },
+      {
+        question: "What caused the final blood spatter around the victim's head?",
+        options: ["Blunt force trauma", "Stabbing", "Second gunshot"],
+        correct: 2,
+        explanation:
+          "The presence of additional impact spatter around the head, after the victim had already fallen, suggests a second, distinct forceful event, consistent with a fatal headshot.",
+      },
+    ],
+  },
   "bedroom-assault": {
     id: "bedroom-assault",
     title: "The Bedroom Assault",
