@@ -308,59 +308,53 @@ export default function BloodCodeGame() {
     const pointWrongSelections = wrongSelections.get(selectedPoint || 0) || new Set()
 
     return (
-      <div className="fixed inset-0 flex z-50">
-        {/* Left side overlay - covers the crime scene */}
-        <div className="flex-1 bg-black bg-opacity-80 flex items-center justify-center">
-          <div className="relative w-96 h-96">
-            {/* Main circle background */}
-            <div className="absolute inset-0 rounded-full border-2 border-red-500 bg-slate-800">
-              {/* Center content */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center text-white">
-                  <div className="text-lg font-bold">Blood Patterns</div>
-                  <div className="text-sm text-gray-300">Select Pattern Type</div>
-                </div>
+      <div className="absolute inset-0 flex items-center justify-center z-50 bg-black bg-opacity-80">
+        <div className="relative w-96 h-96">
+          {/* Main circle background */}
+          <div className="absolute inset-0 rounded-full border-2 border-red-500 bg-slate-800">
+            {/* Center content */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center text-white">
+                <div className="text-lg font-bold">Blood Patterns</div>
+                <div className="text-sm text-gray-300">Select Pattern Type</div>
               </div>
             </div>
-
-            {/* Pattern buttons arranged in circle */}
-            {Object.entries(BLOOD_PATTERNS).map(([key, pattern], index) => {
-              const angle = index * 45 - 90 // Start from top, 45 degrees apart
-              const radian = (angle * Math.PI) / 180
-              const radius = 140
-              const x = Math.cos(radian) * radius + 192 // Center at 192px
-              const y = Math.sin(radian) * radius + 192
-              const isWrongSelection = pointWrongSelections.has(key)
-
-              return (
-                <button
-                  key={key}
-                  className={`absolute text-sm font-medium px-3 py-2 border transform -translate-x-1/2 -translate-y-1/2 transition-colors min-w-[80px] text-center ${
-                    isWrongSelection
-                      ? "bg-gray-700 border-gray-600 text-gray-500 cursor-not-allowed opacity-50"
-                      : "bg-red-700 hover:bg-red-600 text-white border-red-500"
-                  }`}
-                  style={{ left: x, top: y }}
-                  onClick={() => !isWrongSelection && handlePatternSelect(key)}
-                  disabled={isWrongSelection}
-                >
-                  {isWrongSelection ? "✗ " + pattern.name : pattern.name}
-                </button>
-              )
-            })}
-
-            {/* Close button */}
-            <button
-              className="absolute top-4 right-4 text-white hover:text-red-400 text-xl font-bold w-8 h-8 flex items-center justify-center"
-              onClick={() => setShowRadial(false)}
-            >
-              ✕
-            </button>
           </div>
-        </div>
 
-        {/* Right side - no overlay, keeps the analysis panel visible */}
-        <div className="w-96"></div>
+          {/* Pattern buttons arranged in circle */}
+          {Object.entries(BLOOD_PATTERNS).map(([key, pattern], index) => {
+            const angle = index * 45 - 90 // Start from top, 45 degrees apart
+            const radian = (angle * Math.PI) / 180
+            const radius = 140
+            const x = Math.cos(radian) * radius + 192 // Center at 192px
+            const y = Math.sin(radian) * radius + 192
+            const isWrongSelection = pointWrongSelections.has(key)
+
+            return (
+              <button
+                key={key}
+                className={`absolute text-sm font-medium px-3 py-2 border transform -translate-x-1/2 -translate-y-1/2 transition-colors min-w-[80px] text-center ${
+                  isWrongSelection
+                    ? "bg-gray-700 border-gray-600 text-gray-500 cursor-not-allowed opacity-50"
+                    : "bg-red-700 hover:bg-red-600 text-white border-red-500"
+                }`}
+                style={{ left: x, top: y }}
+                onClick={() => !isWrongSelection && handlePatternSelect(key)}
+                disabled={isWrongSelection}
+              >
+                {isWrongSelection ? "✗ " + pattern.name : pattern.name}
+              </button>
+            )
+          })}
+
+          {/* Close button */}
+          <button
+            className="absolute top-4 right-4 text-white hover:text-red-400 text-xl font-bold w-8 h-8 flex items-center justify-center"
+            onClick={() => setShowRadial(false)}
+          >
+            ✕
+          </button>
+        </div>
       </div>
     )
   }
@@ -481,10 +475,10 @@ export default function BloodCodeGame() {
         <div className="absolute top-6 right-32 text-xs text-gray-500">Errors: {errorCount}</div>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row">
         {/* Crime Scene */}
         <div className="flex-1 relative">
-          <div className="relative w-full h-screen">
+          <div className="relative w-full h-[50vh] lg:h-screen overflow-hidden">
             <img
               src={currentCase.image || "/placeholder.svg"}
               alt="Crime Scene"
@@ -539,11 +533,13 @@ export default function BloodCodeGame() {
                   </button>
                 </div>
               ))}
+{/* Radial Interface */}
+            {showRadial && <RadialInterface />}
           </div>
         </div>
 
         {/* Analysis Panel */}
-        <div className="w-96 bg-gray-900 border-l border-gray-800 p-6">
+        <div className="w-full lg:w-96 bg-gray-900 lg:border-l border-gray-800 p-6">
           {phase === "pattern" && (
             <div>
               <h2 className="text-xl font-bold text-red-400 mb-4">Pattern Recognition</h2>
@@ -842,8 +838,6 @@ export default function BloodCodeGame() {
         </div>
       </div>
 
-      {/* Radial Interface */}
-      {showRadial && <RadialInterface />}
     </div>
   )
 }
