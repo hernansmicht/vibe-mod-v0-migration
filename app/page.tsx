@@ -1,5 +1,6 @@
 "use client"
 
+import Image from 'next/image';
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -435,10 +436,12 @@ export default function BloodCodeGame() {
               >
                 <CardContent className="p-0">
                   <div className="relative">
-                    <img
+                    <Image
                       src={crimeCase.image || "/placeholder.svg"}
                       alt={crimeCase.title}
                       className="w-full h-48 object-cover rounded-t-lg"
+                      width={500}
+                      height={300}
                     />
                     <div className="absolute top-2 right-2">
                       <span
@@ -527,10 +530,12 @@ export default function BloodCodeGame() {
         {/* Crime Scene */}
         <div className="flex-1 relative">
           <div className="relative w-full h-[50vh] lg:h-screen overflow-hidden">
-            <img
+            <Image
               src={currentCase.image || "/placeholder.svg"}
               alt="Crime Scene"
               className="w-full h-full object-cover"
+              width={900}
+              height={600}
             />
 
             {/* Analysis Points */}
